@@ -6,6 +6,8 @@ from django.views import View
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.db import IntegrityError
+from django.db.models import F
+
 
 from .models import Question, Choice, UserVote
 from .forms import LoginForm,QuestionForm,ChoiceForm
@@ -122,7 +124,7 @@ class Home(ListView):
     model = Question
     context_object_name = 'question'
     template_name='index.html'
-    queryset = Question.objects.all().order_by('-date')[:5]
+    queryset = Question.objects.all().order_by('-date')[:5].annotate()
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)

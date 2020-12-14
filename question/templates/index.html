@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load django_template_maths %}
+
 {% block title %}
 Home
 {% endblock title %}
@@ -38,7 +40,7 @@ Home
                     <a href="{{choice.c_name}}">
 
                     </p>
-                        {{choice.c_name}} - > {{choice.votes_count}}
+                        {{choice.c_name}} - > {{choice.votes_count |div:question.total_vote_count}}%
                     <p>
                     </a>
                 {% comment %} </li>
