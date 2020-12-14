@@ -102,6 +102,7 @@ class Login(View):
                 
         return redirect('login')    
 
+# asd
 
 class Logout(View):
     def get(self,requset):
