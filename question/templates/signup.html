@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+آشناشیم      
+
+{% endblock title %}
+
+{% block username %}
+
+<a href='{% url 'home' %}'>
+بشناسمت 
+</a>
+{% endblock username %}
+
+{% block content %}
+<form method='POST'>
+{% csrf_token %}
+    {{form}}
+    <button type='submit'>بزن بریم</button>
+</form>
+{% endblock content %}

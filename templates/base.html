@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+        {% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/base_style.css' %}">
+
+</head>
+
+<body>
+<div style="
+position:unset;
+top:0;
+right:0;
+left:0;
+min-width:100%;
+height: 50px;
+background-color: azure;
+text-align:center;
+font-size:1.5em">
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+</div>
+{% else %}
+
+{% block username %}
+
+{% endblock username %}
+
+
+{% endif %}
+
+
+
+</div>
+
+    <div style="position:fixed;top:0;right:0;left:0;min"></div>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+
+    <div id="footer">
+        {% include 'footer.html' %}
+    </div>
+    {% comment %}
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endcomment %}
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Question List {{ questions | length }}
+{% endblock title %}
+
+{% block username %}
+Question List {{ questions | length }}
+{% endblock username %}
+
+{% block content %}
+<hr style='width:80%;'>
+<div style='text-align:center'>
+{% for question in questions %}
+
+        <h3>{{question.name}}</h3>
+
+<hr style='width:25%'>
+
+        {% for choice in question.choice.all %}
+
+                    <a href="{{choice.name}}">
+
+                    </p>
+                        {{choice.name}} - > {{choice.votes_count}}
+                    <p>
+                    </a>
+        {% endfor %}
+        <br>
+{% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block username %}
+{% if request.user.is_authenticated %}
+    {{user}}
+    <form action = '{% url 'logout' %}' >
+    <button style='position:fixed;right:15px;top:15px;'> Logout</button>
+    </form>
+{% else %}
+<a href="{% url 'login' %}
+"> Sign in      </a>
+ |
+<a href="{% url 'signup' %}
+">          Sign Up <a>
+{% endif %}
+{% endblock username %}
+
+{% block content %}
+<hr style='width:80%;'>
+<div style='text-align:center'>
+{% for question in question %}
+{% comment %} <ul>
+    <li> {% endcomment %}
+        
+                    <a href="question/{{question.id}}">
+
+        <h3>{{question.name}}</h3>
+</a>
+<hr style='width:25%'>
+
+        {% for choice in question.choice.all %}
+            {% comment %} <ul>
+                <li> {% endcomment %}
+                    <a href="{{choice.name}}">
+
+                    </p>
+                        {{choice.name}} - > {{choice.votes_count}}
+                    <p>
+                    </a>
+                {% comment %} </li>
+            </ul> {% endcomment %}
+        {% endfor %}
+        <br>
+    {% comment %} </li>
+</ul> {% endcomment %}
+{% endfor %}
+</div>
+{% endblock content %}
