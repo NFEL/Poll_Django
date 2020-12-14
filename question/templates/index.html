@@ -37,10 +37,10 @@ Home
         {% for choice in question.choice.all %}
             {% comment %} <ul>
                 <li> {% endcomment %}
-                    <a href="{{choice.c_name}}">
+                    <a href="{{choice.id}}">
 
                     </p>
-                        {{choice.c_name}} - > {{choice.votes_count |div:question.total_vote_count}}%
+                        {{choice.c_name}} - > {{choice.votes_count |div:question.total_vote_count|mul:100|safe}}%
                     <p>
                     </a>
                 {% comment %} </li>

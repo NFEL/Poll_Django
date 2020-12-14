@@ -150,7 +150,7 @@ class SubmitVote(View):
     def get(self,requst,*args, **kwargs):
         if requst.user.is_authenticated:
             # print(kwargs.get('pk'))
-            choice_to_vote =get_object_or_404(Choice,c_name = kwargs.get('choice_name'))
+            choice_to_vote =get_object_or_404(Choice,id = kwargs.get('id'))
             try:
                 UserVote.objects.create(user_id=requst.user,
                                     vote=choice_to_vote,

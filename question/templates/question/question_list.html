@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
+{% load django_template_maths %}
+
 {% block title %}
-Question List {{ questions | length }}
+Question List ({{ questions | length }})
 {% endblock title %}
 
 {% block username %}
-Question List {{ questions | length }}
+Question List ({{ questions | length }})
 {% endblock username %}
 
 {% block content %}
@@ -19,10 +21,10 @@ Question List {{ questions | length }}
 
         {% for choice in question.choice.all %}
 
-                    <a href="{{choice.c_name}}">
+                    <a href="{{choice.id}}">
 
                     </p>
-                        {{choice.c_name}} - > {{choice.votes_count}} => 
+                        {{choice.c_name}} - > {{choice.votes_count |div:question.total_vote_count|mul:100|safe}}%
                     <p>
                     </a>
         {% endfor %}
