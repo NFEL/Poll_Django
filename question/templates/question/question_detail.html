@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Question : {{ question.name}}
+Question : {{ question.q_name}}
 {% endblock title %}
 
 {% block username %}
-Question : {{ question.name}}
+Question : {{ question.q_name}}
 {% endblock username %}
 
 {% block content %}
 <div style='text-align:center'>
 
-        <h3>{{question.name}}</h3>
+        <h3>{{question.q_name}} ({{question.total_vote_count}})</h3>
 
 <hr style='width:25%'>
 
         {% for choice in question.choice.all %}
 
-                    <a href="{{choice.name}}">
+                    <a href="{{choice.c_name}}">
 
                     </p>
-                        {{choice.name}} - > {{choice.votes_count}}
+                        {{choice.c_name}} - > {{choice.votes_count}}
                     <p>
                     </a>
         {% endfor %}

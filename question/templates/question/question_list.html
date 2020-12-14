@@ -13,16 +13,16 @@ Question List {{ questions | length }}
 <div style='text-align:center'>
 {% for question in questions %}
 
-        <h3>{{question.name}}</h3>
+        <h3>{{question.q_name}} ({{question.total_vote_count}})</h3>
 
 <hr style='width:25%'>
 
         {% for choice in question.choice.all %}
 
-                    <a href="{{choice.name}}">
+                    <a href="{{choice.c_name}}">
 
                     </p>
-                        {{choice.name}} - > {{choice.votes_count}}
+                        {{choice.c_name}} - > {{choice.votes_count}}
                     <p>
                     </a>
         {% endfor %}

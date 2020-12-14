@@ -49,6 +49,26 @@ font-size:1.5em">
         {% endblock content %}
     </div>
 
+    <div style="margin-bottom:50px;text-align:center;">
+    {% if request.user.is_superuser %}
+
+        <form method='POST'>
+        {% csrf_token %}
+        <h3>Add Question</h3>
+        {{Qadd}}
+        <button type='submit'> Add</button>
+        <hr style="width:75%">
+        </form>
+
+        <form method='POST'>
+        {% csrf_token %}
+        <h3>Add Choice</h3>
+        {{Cadd}}
+        <button type='submit'> Add</button>
+        </form>
+        
+    {% endif %}
+    </div>
 
     <div id="footer">
         {% include 'footer.html' %}

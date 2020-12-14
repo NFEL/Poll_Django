@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, HttpResponse,get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView,CreateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views import View
@@ -8,19 +8,50 @@ from django.contrib import messages
 from django.db import IntegrityError
 
 from .models import Question, Choice, UserVote
-from .forms import LoginForm
+from .forms import LoginForm,QuestionForm,ChoiceForm
 #ShowQuestions, Signup, Login, Logout, QuestionDetail, Profile, QuestionList
 
 
 class QuestionList(ListView):
     model = Question
     context_object_name = 'questions'
+  
+    def get_context_data(self, **kwargs):
+        context = super(QuestionList, self).get_context_data(**kwargs)
+        context['Qadd'] = QuestionForm()
+        context['Cadd'] = ChoiceForm()
+        return context
+
+    def post(self,request,*args, **kwargs):
+        Cform = ChoiceForm(request.POST)
+        Qform = QuestionForm(request.POST)
+        if Cform.is_valid():
+            print(Cform.save())
+        if Qform.is_valid():
+            Qform.save()
+
+        return redirect('home')
+
+
 
 
 class QuestionDetail(DetailView):
     model = Question
 
     context_object_name = 'question'
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionDetail, self).get_context_data(**kwargs)
+        context['Cadd'] = ChoiceForm(initial={'question':kwargs.get('object')})
+        return context
+
+    def post(self,request,*args, **kwargs):
+        Cform = ChoiceForm(request.POST)
+        if Cform.is_valid():
+            print(Cform.save())
+
+        return redirect('home')
+
 
 
 class Signup(View):
@@ -79,6 +110,7 @@ class Logout(View):
             return redirect('login')
         return redirect('home')
 
+
 class Profile(View):
     def get(self, request, *args, **kwargs):
         return HttpResponse('GET request!')
@@ -94,14 +126,29 @@ class Home(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
+        context['Qadd'] = QuestionForm()
+        context['Cadd'] = ChoiceForm()
         return context
+
+    def post(self,request,*args, **kwargs):
+        Qform = QuestionForm(request.POST)
+        Cform = ChoiceForm(request.POST)
+
+        if Qform.is_valid():
+            question = Qform.save()
+
+        if Cform.is_valid():
+            print(Cform.save())
+
+        return redirect('home')
+            
 
 class SubmitVote(View):
     next_url='home'
     def get(self,requst,*args, **kwargs):
         if requst.user.is_authenticated:
             # print(kwargs.get('pk'))
-            choice_to_vote =get_object_or_404(Choice,name = kwargs.get('choice_name'))
+            choice_to_vote =get_object_or_404(Choice,c_name = kwargs.get('choice_name'))
             try:
                 UserVote.objects.create(user_id=requst.user,
                                     vote=choice_to_vote,

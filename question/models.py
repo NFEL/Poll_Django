@@ -4,23 +4,30 @@ from django.contrib.auth.models import User
 
 
 class Question(models.Model):
-    name = models.CharField("question name", max_length=50)
-    date = models.DateTimeField(auto_now=True)
+    q_name = models.CharField("question name", max_length=50)
+    date = models.DateTimeField(auto_now_add=True)
     total_vote_count = models.IntegerField(
         _("total number of votes"), default=0)
 
     def __str__(self) -> str:
-        return f'{self.name} -> {self.total_vote_count}'
+        return f'{self.q_name} -> {self.total_vote_count}'
 
 
 class Choice(models.Model):
-    name = models.CharField(_("name of choice"), max_length=50)
+    c_name = models.CharField(_("name of choice"), max_length=50)
     question = models.ForeignKey(Question, verbose_name=_(
-        "question name"), on_delete=models.CASCADE, related_name='choice')
+        "question name"), on_delete=models.CASCADE, related_name='choice',blank=True)
     votes_count = models.IntegerField(_("number of votes"), default=0)
 
+    class Meta:
+            constraints = [
+                models.UniqueConstraint(
+                    fields=['c_name', 'question'],
+                    name='vote_question'),
+            ]
+
     def __str__(self) -> str:
-        return f'{self.question.name} ({self.id} - {self.name}) '
+        return f'{self.question.q_name} ({self.id} - {self.c_name}) '
 
 
 class UserVote(models.Model):

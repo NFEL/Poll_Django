@@ -28,17 +28,17 @@ Home
         
                     <a href="question/{{question.id}}">
 
-        <h3>{{question.name}}</h3>
+        <h3>{{question.q_name}} ({{question.total_vote_count}})</h3>
 </a>
 <hr style='width:25%'>
 
         {% for choice in question.choice.all %}
             {% comment %} <ul>
                 <li> {% endcomment %}
-                    <a href="{{choice.name}}">
+                    <a href="{{choice.c_name}}">
 
                     </p>
-                        {{choice.name}} - > {{choice.votes_count}}
+                        {{choice.c_name}} - > {{choice.votes_count}}
                     <p>
                     </a>
                 {% comment %} </li>
