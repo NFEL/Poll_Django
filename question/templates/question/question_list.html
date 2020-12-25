@@ -8,6 +8,13 @@ Question List ({{ questions | length }})
 
 {% block username %}
 Question List ({{ questions | length }})
+
+<form method='POST'>
+{% csrf_token %}
+<input name='search_text'>
+<button>Search</button>
+</form>
+
 {% endblock username %}
 
 {% block content %}

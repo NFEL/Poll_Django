@@ -19,7 +19,7 @@ Question : {{ question.q_name}}
 
         {% for choice in question.choice.all %}
 
-                    <a href="{{choice.id}}">
+                    <a href="/{{choice.id}}">
 
                     </p>
                         {{choice.c_name}} - > {{choice.votes_count |div:question.total_vote_count|mul:100|safe}}%

@@ -19,6 +19,13 @@ Home
 <a href="{% url 'signup' %}
 ">          Sign Up <a>
 {% endif %}
+
+<form method='POST'>
+{% csrf_token %}
+<input name='search_text'>
+<button>Search</button>
+</form>
+
 {% endblock username %}
 
 {% block content %}
