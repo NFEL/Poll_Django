@@ -22,6 +22,7 @@ class QuestionList(ListView):
         context = super(QuestionList, self).get_context_data(**kwargs)
         context['Qadd'] = QuestionForm()
         context['Cadd'] = ChoiceForm()
+        print(QuestionForm())
         return context
 
     def post(self,request,*args, **kwargs):
@@ -102,7 +103,6 @@ class Login(View):
                 
         return redirect('login')    
 
-# asd
 
 class Logout(View):
     def get(self,requset):
